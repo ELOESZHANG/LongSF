@@ -18,16 +18,8 @@ This is the official version of LongSF. Ursus-Mamba is mainly used for multimoda
 </figure>
 
 
-## Train
-1. Preparing your training data(GOT-10K dataset, LSOTB-TIR training dataset)
-2. Configure the path in `lib/train/admin/local.py`
-3. Run `lib/train/run_training.py`
 
-## Test
-1. Please download the LSOTB-TIR evaluation dataset, PTB-TIR dataset, and VOT-TIR2015 dataset.
-2. Configure the path in  `lib/test/evaluation/local.py` and `lib/test/parameter/nlmtrack.py`.
-3. Run `tracking/test.py` for testing
-4. Evaluation on the [LSOTB-TIR benchmark](https://github.com/QiaoLiuHit/LSOTB-TIR), [PTB-TIR benchmark](https://github.com/QiaoLiuHit/PTB-TIR_Evaluation_toolkit), and [VOT benchmark](https://github.com/votchallenge/toolkit-legacy)
+
 
 ### Installation
 1.  Prepare for the running environment. 
@@ -88,7 +80,7 @@ This is the official version of LongSF. Ursus-Mamba is mainly used for multimoda
     python -m pcdet.datasets.kitti.kitti_dataset_custom create_kitti_infos ../tools/cfgs/dataset_configs/kitti_dataset_custom.yaml
     ```
     
-1. Training. (We recommend running on single GPU, and our optimal model was trained using just 1 GPU.)
+##  Training. (We recommend running on single GPU, and our optimal model was trained using just 1 GPU.)
 
     For single GPU 
     ```
@@ -106,7 +98,7 @@ This is the official version of LongSF. Ursus-Mamba is mainly used for multimoda
      --epochs 60 --max_ckpt_save_num 30 --fix_random_seed
     ```
 
-2. Evaluation.
+## Testing or Evaluation.
 
     ```
     cd tools
