@@ -1,9 +1,9 @@
 # LongSF
-This is the official version of LongSF. Ursus-Mamba is mainly used for multimodal 3D object detection with SSMs, and we conduct experiments on nuScenes and KITTI datasets.
+This is the official version of LongSF. LongSF is mainly used for multimodal 3D object detection with SSMs, and we conduct experiments on nuScenes and KITTI datasets.
 
 ![](./LongSF.png)
 
-* **Strong performance**. MPCF achieves **SOTA** performance on kitti test set for single-use data. [`KITTI Benchmark`](https://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=3d)💪
+* **Strong performance**. LongSF achieves **SOTA** performance on kitti test set for single-use data. [`KITTI Benchmark`](https://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=3d)💪
 
 ## Evaluation results on the KITTI benchmark
 <figure>
@@ -24,7 +24,7 @@ This is the official version of LongSF. Ursus-Mamba is mainly used for multimoda
 ### Installation
 1.  Prepare for the running environment. 
 
-    You can  follow the installation steps in [`OpenPCDet`](https://github.com/open-mmlab/OpenPCDet). We use 1 RTX-3090 or 4 RTX-4090 GPUs to train our MPCF.
+    You can  follow the installation steps in [`OpenPCDet`](https://github.com/open-mmlab/OpenPCDet). We use 1 RTX-3090 or 4 RTX-4090 GPUs to train our LongSF.
 
 2. Prepare for the data.  
     
@@ -54,8 +54,8 @@ This is the official version of LongSF. Ursus-Mamba is mainly used for multimoda
 3. Setup.
 
     ```
-    conda create -n MPCF_env python=3.8
-    conda activate MPCF_env
+    conda create -n LongSF_env python=3.8
+    conda activate LongSF_env
     
      pip install torch==1.10.1+cu113 torchvision==0.11.2+cu113 torchaudio==0.10.1+cu113 -f https://download.pytorch.org/whl/torch_stable.html
     (or: pip install torch==2.0.0+cu117 torchvision==0.15.1+cu117 torchaudio==2.0.1+cu117 -f https://download.pytorch.org/whl/torch_stable.html )
@@ -94,7 +94,7 @@ This is the official version of LongSF. Ursus-Mamba is mainly used for multimoda
     cd tools
     python -m torch.distributed.launch --nnodes 1 --nproc_per_node=4 --master_port 25511 train.py \
      --gpu_id 0,1,2,3 --launch 'pytorch' --workers 4 \
-     --batch_size 4 --cfg_file cfgs/kitti_models/mpcf.yaml  --tcp_port 61000 \
+     --batch_size 4 --cfg_file cfgs/kitti_models/LongSF.yaml  --tcp_port 61000 \
      --epochs 60 --max_ckpt_save_num 30 --fix_random_seed
     ```
 
@@ -103,7 +103,7 @@ This is the official version of LongSF. Ursus-Mamba is mainly used for multimoda
     ```
     cd tools
     python test.py --gpu_id 1 --workers 4 --cfg_file cfgs/kitti_models/mpcf_test.yaml --batch_size 1 \
-     --ckpt ../output/kitti_models/mpcf/default/ckpt/checkpoint_epoch_57.pth #--save_to_file 
+     --ckpt ../output/kitti_models/LongSF/default/ckpt/checkpoint_epoch_18.pth #--save_to_file 
     ```
     
 ## License
