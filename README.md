@@ -1,19 +1,19 @@
 # LongSF
 This is the official version of LongSF. LongSF is mainly used for multimodal 3D object detection with SSMs, and we conduct experiments on nuScenes and KITTI datasets.
 
-![](./LongSF.png)
+![](./Figures/LongSF.png)
 
 * **Strong performance**. LongSF achieves **SOTA** performance on kitti test set for single-use data. [`KITTI Benchmark`](https://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=3d)💪
 
 ## Evaluation results on the KITTI benchmark
 <figure>
-  <img src="./tracking/EVALUATION RESULTS.png" alt="table">
+  <img src="./Figures/Kitti.png" alt="table">
   <figcaption style="text-align: center;"></figcaption>
 </figure>
 
 ## Evaluation results on the nuScenes benchmark
 <figure>
-  <img src="./tracking/EVALUATION RESULTS.png" alt="table">
+  <img src="./Figures/nuScenes.png" alt="table">
   <figcaption style="text-align: center;"></figcaption>
 </figure>
 
