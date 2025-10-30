@@ -120,14 +120,15 @@ This is the official version of LongSF. LongSF is mainly used for multimodal 3D 
      --eval_all
    ```
 4.  For high performance.
-    01. train Baseline. You need annotate the ISF and TSR modules in longsf_part.py. And Set lr=0.001 in longsf.yaml.
    ```
+    01. train Baseline. You need annotate the ISF and TSR modules in longsf_part.py. And Set lr=0.001 in longsf.yaml.
+  
       CUDA_VISIBLE_DEVICES='0' python train.py --gpu_id 1 --workers 1 --cfg_file cfgs/kitti_models/longsf.yaml \
        --batch_size 1 --epochs 60 --max_ckpt_save_num 20  \
        --fix_random_seed
-   ```
+
     02. train longsf. Cancel the annotations of ISF and TSR modules in longsf_part.py. And Set lr=0.00001 in longsf.yaml.
-   ```
+
       CUDA_VISIBLE_DEVICES='0' python train.py --gpu_id 1 --workers 1 --cfg_file cfgs/kitti_models/longsf.yaml \
       --batch_size 1 --epochs 30 --max_ckpt_save_num 20  \
       --fix_random_seed \
