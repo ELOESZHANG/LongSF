@@ -87,31 +87,50 @@ This is the official version of LongSF. LongSF is mainly used for multimodal 3D 
     python -m pcdet.datasets.kitti.kitti_dataset_custom create_kitti_infos ../tools/cfgs/dataset_configs/kitti_dataset_custom.yaml
     ```
     
-##  Training. (We recommend running on single GPU, and our optimal model was trained using just 1 GPU.)
+1.  Training. (We recommend running on single GPU, and our optimal model was trained using just 1 GPU.)
 
     For single GPU 
     ```
     cd tools
-    python train.py --gpu_id 0 --workers 0 --cfg_file cfgs/kitti_models/longsf.yaml \
-     --batch_size 1 --epochs 60 --max_ckpt_save_num 25 --fix_random_seed
+    CUDA_VISIBLE_DEVICES='0' python train.py --gpu_id 0 --workers 1 --cfg_file cfgs/kitti_models/longsf.yaml \
+       --batch_size 1 --epochs 60 --max_ckpt_save_num 20  \
+       --fix_random_seed
     ```
     
     For 4 GPUs
     ```
     cd tools
-    python -m torch.distributed.launch --nnodes 1 --nproc_per_node=4 --master_port 25511 train.py \
-     --gpu_id 0,1,2,3 --launch 'pytorch' --workers 4 \
-     --batch_size 4 --cfg_file cfgs/kitti_models/longsf.yaml  --tcp_port 61000 \
-     --epochs 60 --max_ckpt_save_num 30 --fix_random_seed
+    python -m torch.distributed.launch --nnodes 1 --nproc_per_node=4 --master_port 25511 train.py --gpu_id 0 --launch 'pytorch' --workers 4 \
+       --batch_size 4 --cfg_file cfgs/kitti_models/mpcf_can_mamba.yaml  --tcp_port 61000  \
+       --epochs 60 --max_ckpt_save_num 30 \
+       --fix_random_seed
     ```
 
-## Testing or Evaluation.
+2. Val one epoch.  (You need to create a soft link from longsf/default/ckpt to longsf_test/default/ckpt)
 
     ```
     cd tools
     python test.py --gpu_id 1 --workers 4 --cfg_file cfgs/kitti_models/longsf_test.yaml --batch_size 1 \
      --ckpt ../output/kitti_models/LongSF/default/ckpt/checkpoint_epoch_18.pth #--save_to_file 
     ```
+3. Val all. (You need to create a soft link from longsf/default/ckpt to longsf_test/default/ckpt)
+   ```
+    cd tools
+    python test.py --gpu_id 1 --workers 4 --cfg_file cfgs/kitti_models/longsf_test.yaml --batch_size 1 \
+     --eval_all
+   ```
+4.################## For high performance  ####################
+  1. train Baseline. You need annotate the ISF and TSR modules in longsf_part.py. And Set lr=0.001 in longsf.yaml.
+    CUDA_VISIBLE_DEVICES='0' python train.py --gpu_id 1 --workers 1 --cfg_file cfgs/kitti_models/longsf.yaml \
+     --batch_size 1 --epochs 60 --max_ckpt_save_num 20  \
+     --fix_random_seed
+
+  2. train longsf. Cancel the annotations of ISF and TSR modules in longsf_part.py. And Set lr=0.00001 in longsf.yaml.
+    CUDA_VISIBLE_DEVICES='0' python train.py --gpu_id 1 --workers 1 --cfg_file cfgs/kitti_models/longsf.yaml \
+    --batch_size 1 --epochs 30 --max_ckpt_save_num 20  \
+    --fix_random_seed \
+    --pretrained_model ../output/kitti_models/longsf/default/ckpt/checkpoint_epoch_52.pth
+
     
 ## License
 
