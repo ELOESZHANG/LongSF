@@ -57,16 +57,23 @@ This is the official version of LongSF. LongSF is mainly used for multimodal 3D 
     conda create -n LongSF_env python=3.8
     conda activate LongSF_env
     
-     pip install torch==1.10.1+cu113 torchvision==0.11.2+cu113 torchaudio==0.10.1+cu113 -f https://download.pytorch.org/whl/torch_stable.html
-    (or: pip install torch==2.0.0+cu117 torchvision==0.15.1+cu117 torchaudio==2.0.1+cu117 -f https://download.pytorch.org/whl/torch_stable.html )
+    pip install torch==1.13.0+cu117 torchvision==0.14.0+cu117 torchaudio==0.13.0+cu117 -f https://download.pytorch.org/whl/torch_stable.html
+    
+    cd LongSF
     pip install -r requirements.txt
-    pip install spconv-cu113 (or spconv-cu116)
-
-    cd MPCF
+    pip install spconv-cu113
+    pip install torch_scatter==2.1.2
+    python -m pip install causal-conv1d==1.2.0.post2
+    
     python setup.py develop
     
     cd pcdet/ops/iou3d/cuda_op
     python setup.py develop
+    
+    cd pcdet/ops/mamba
+    python setup.py install
+    
+    #-i https://pypi.org/simple/ 
 
     ```
 
@@ -85,7 +92,7 @@ This is the official version of LongSF. LongSF is mainly used for multimodal 3D 
     For single GPU 
     ```
     cd tools
-    python train.py --gpu_id 0 --workers 0 --cfg_file cfgs/kitti_models/mpcf.yaml \
+    python train.py --gpu_id 0 --workers 0 --cfg_file cfgs/kitti_models/longsf.yaml \
      --batch_size 1 --epochs 60 --max_ckpt_save_num 25 --fix_random_seed
     ```
     
@@ -94,7 +101,7 @@ This is the official version of LongSF. LongSF is mainly used for multimodal 3D 
     cd tools
     python -m torch.distributed.launch --nnodes 1 --nproc_per_node=4 --master_port 25511 train.py \
      --gpu_id 0,1,2,3 --launch 'pytorch' --workers 4 \
-     --batch_size 4 --cfg_file cfgs/kitti_models/LongSF.yaml  --tcp_port 61000 \
+     --batch_size 4 --cfg_file cfgs/kitti_models/longsf.yaml  --tcp_port 61000 \
      --epochs 60 --max_ckpt_save_num 30 --fix_random_seed
     ```
 
@@ -102,7 +109,7 @@ This is the official version of LongSF. LongSF is mainly used for multimodal 3D 
 
     ```
     cd tools
-    python test.py --gpu_id 1 --workers 4 --cfg_file cfgs/kitti_models/mpcf_test.yaml --batch_size 1 \
+    python test.py --gpu_id 1 --workers 4 --cfg_file cfgs/kitti_models/longsf_test.yaml --batch_size 1 \
      --ckpt ../output/kitti_models/LongSF/default/ckpt/checkpoint_epoch_18.pth #--save_to_file 
     ```
     
