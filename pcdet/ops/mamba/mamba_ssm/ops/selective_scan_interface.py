@@ -358,7 +358,7 @@ class MambaInner_longsf(torch.autograd.Function):
             # 确保热力图与A维度一致 (Channel, d_state) = (128,16)
             batch_size = B.shape[0]
             # topk_ratio=0.8
-            k = max(1, int(d_state*int(L * topk_ratio)))
+            k = max(1, int(d_state*int(L * topk_ratio))//4)
             # print("k:", k)
 
             # 生成逐元素热力图（方案1：绝对值）
@@ -504,7 +504,7 @@ class MambaInner_longsf(torch.autograd.Function):
                 f2_flat = heatmap_c.flatten()
 
                 # Top-k selection and feature fusion
-                k = max(1, d_state*int(L * topk_ratio))
+                k = max(1, d_state*int(L * topk_ratio)//4)
                 v1, idx1 = torch.topk(f1_flat, k)
                 v2, idx2 = torch.topk(f2_flat, k)
 
@@ -669,6 +669,7 @@ if __name__ == '__main__':
     erreee = out - out_orig
     print(xz)
     print(out)
+
 
 
 
