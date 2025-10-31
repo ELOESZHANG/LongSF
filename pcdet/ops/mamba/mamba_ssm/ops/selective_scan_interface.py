@@ -516,8 +516,8 @@ class MambaInner_longsf(torch.autograd.Function):
                 combined = rearrange(torch.cat([paired, remain]), "(d k)-> d k",k=k1)
 
                 # Statistics and projection
-                features = torch.cat([combined, combined.mean(dim=-1,keepdim=True),combined.var(dim=-1,keepdim=True)],dim=-1)
-                features_linear = F.linear(features, BC_proj_weight).flatten()
+                features = torch.cat([combined[:,:-2], combined.mean(dim=-1,keepdim=True),combined.var(dim=-1,keepdim=True)],dim=-1)
+                features_linear = F.linear(features.flatten(), BC_proj_weight)
 
                 # Compute gradients for BC_proj_weight
                 mask_B_flat = torch.zeros_like(f1_flat).scatter(0, idx1, features_linear)
@@ -529,7 +529,7 @@ class MambaInner_longsf(torch.autograd.Function):
                 C_modified = C * torch.sigmoid(rearrange(mask_C, "d l -> 1 1 d l"))
                 total_effect = B_modified.sum() + C_modified.sum()
 
-                dBC_proj_weight = torch.autograd.grad(total_effect, BC_proj_weight, retain_graph=False)[0]*1e-1
+                dBC_proj_weight = torch.autograd.grad(total_effect, BC_proj_weight, retain_graph=False)[0]*1e-3
 
         ddelta = rearrange(ddelta, "b d l -> d (b l)")
         ddelta_proj_weight = torch.einsum("dB,Br->dr", ddelta, x_dbl[:, :delta_rank])
@@ -669,5 +669,6 @@ if __name__ == '__main__':
     erreee = out - out_orig
     print(xz)
     print(out)
+
 
 
