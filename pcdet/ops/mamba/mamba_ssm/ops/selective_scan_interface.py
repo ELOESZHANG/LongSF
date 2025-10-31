@@ -383,10 +383,10 @@ class MambaInner_longsf(torch.autograd.Function):
             combined = torch.cat([paired, remain]).view(d_state,-1)
 
             # 统计特征
-            features = torch.cat([combined, combined.mean(dim=-1,keepdim=True),combined.var(dim=-1,keepdim=True)],dim=-1)
+            features = torch.cat([combined[:,:-2], combined.mean(dim=-1,keepdim=True),combined.var(dim=-1,keepdim=True)],dim=-1)
 
             # 特征压缩
-            features = F.linear(features, BC_proj_weight).flatten()
+            features = F.linear(features.flatten(), BC_proj_weight)
 
             # 矩阵重建
             mask_B = torch.zeros_like(f1_flat).scatter_(0, idx1, features).view_as(heatmap)
@@ -669,4 +669,5 @@ if __name__ == '__main__':
     erreee = out - out_orig
     print(xz)
     print(out)
+
 
