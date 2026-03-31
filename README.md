@@ -138,6 +138,7 @@ This is the official version of LongSF. LongSF is mainly used for multimodal 3D 
 ## License
 
 This code is released under the [Apache 2.0 license](LICENSE).
+
     
 ## Acknowledgements
 We thank these great works and open-source repositories:
