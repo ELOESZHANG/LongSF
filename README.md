@@ -1,6 +1,6 @@
- # LongSF: Long state fusion with SSMs for multimodal 3D object detection
-
 <div align="center">
+
+# LongSF: Long state fusion with SSMs for multimodal 3D object detection
  
 [Pan Gao](https://pangao-1.github.io/) <sup>1, </sup>,
 [Ping Zhang](https://github.com/ELOESZHANG) <sup>1,✉* </sup>,
