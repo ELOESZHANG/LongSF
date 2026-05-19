@@ -1,4 +1,13 @@
 # LongSF
+[Pan Gao](https://pangao-1.github.io/) <sup>1, </sup>,
+[Ping Zhang](https://github.com/ELOESZHANG) <sup>1,✉* </sup>,
+[`Paper`](https://www.sciencedirect.com/science/article/pii/S0957417426015952).
+<br>
+<sup>1</sup> UESTC
+<br>
+</div>
+
+
 This is the official version of LongSF. LongSF is mainly used for multimodal 3D object detection with SSMs, and we conduct experiments on nuScenes and KITTI datasets.
 
 ![](./Figures/LongSF.png)
