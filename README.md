@@ -1,4 +1,6 @@
-# LongSF
+<div align="center">
+  
+## LongSF
 [Pan Gao](https://pangao-1.github.io/) <sup>1, </sup>,
 [Ping Zhang](https://github.com/ELOESZHANG) <sup>1,✉* </sup>,
 [`Paper`](https://www.sciencedirect.com/science/article/pii/S0957417426015952).
