@@ -1,4 +1,4 @@
- # LongSF
+ # LongSF: Long state fusion with SSMs for multimodal 3D object detection
 
 <div align="center">
  
